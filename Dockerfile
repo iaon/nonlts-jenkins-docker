@@ -5,10 +5,10 @@ RUN apt-get update && apt-get install -y wget git curl zip && rm -rf /var/lib/ap
 ENV JENKINS_HOME /var/jenkins_home
 ENV JENKINS_SLAVE_AGENT_PORT 50000
 
-# Jenkins is run with user `jenkins`, uid = 1000
+# Jenkins is run with user `jenkins`, uid = 106
 # If you bind mount a volume from the host or a data container, 
 # ensure you use the same uid
-RUN useradd -d "$JENKINS_HOME" -u 1000 -m -s /bin/bash jenkins
+RUN useradd -d "$JENKINS_HOME" -u 106 -m -s /bin/bash jenkins
 
 # Jenkins home directory is a volume, so configuration and build history 
 # can be persisted and survive image upgrades
@@ -27,8 +27,8 @@ RUN curl -fL https://github.com/krallin/tini/releases/download/v0.5.0/tini-stati
 
 COPY init.groovy /usr/share/jenkins/ref/init.groovy.d/tcp-slave-agent-port.groovy
 
-ENV JENKINS_VERSION 1.642.1
-ENV JENKINS_SHA 6a0213256670a00610a3e09203850a0fcf1a688e
+ENV JENKINS_VERSION 1.644
+ENV JENKINS_SHA ceeaad30ea4d919107f1774a0e7fa9a07317ae30
 
 
 # could use ADD but this one does not check Last-Modified header 
